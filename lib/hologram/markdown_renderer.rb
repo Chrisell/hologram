@@ -3,9 +3,8 @@ require 'hologram/block_code_renderer'
 include ERB::Util
 
 module Hologram
-  class MarkdownRenderer < Redcarpet::Render::HTML
+  class MarkdownRenderer < Kramdown::Parser::Html
     def initialize(opts={})
-      super(opts)
       @link_helper = opts[:link_helper]
     end
 

@@ -1,4 +1,4 @@
-require 'redcarpet'
+require 'kramdown'
 require 'yaml'
 require 'rouge'
 require 'fileutils'

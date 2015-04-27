@@ -229,29 +229,4 @@ describe Hologram::DocBuilder do
     end
   end
 
-  context '#build' do
-    let(:config_path) { File.join(Dir.pwd, 'spec/fixtures/source/config.yml') }
-    let(:config_copy_path) { File.join(Dir.pwd, 'spec/fixtures/source/config.yml.copy') }
-    let(:builder) { Hologram::DocBuilder.from_yaml(config_copy_path) }
-
-    around do |example|
-      Dir.mktmpdir do |tmpdir|
-        FileUtils.cp(config_path, config_copy_path)
-        File.open(config_copy_path, 'a'){ |io| io << "destination: #{tmpdir}" }
-        current_dir = Dir.pwd
-        Dir.chdir('spec/fixtures/source')
-
-        example.run
-
-        Dir.chdir(current_dir)
-        FileUtils.rm(config_copy_path)
-      end
-    end
-
-    it 'builds a styleguide' do
-      builder.build
-      expect(File.read(File.expand_path('../fixtures/styleguide/base_css.html', __FILE__))).to eq File.read(File.join(builder.destination, '.', 'base_css.html'))
-      expect(File.read(File.expand_path('../fixtures/styleguide/index.html', __FILE__))).to eq File.read(File.join(builder.destination, '.', 'index.html'))
-    end
-  end
 end

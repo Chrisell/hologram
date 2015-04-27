@@ -13,7 +13,7 @@ Gem::Specification.new do |spec|
   spec.homepage      = "http://trulia.github.io/hologram"
   spec.license       = "MIT"
 
-  spec.add_dependency "redcarpet", ">= 2.2", "< 4.0"
+  spec.add_dependency "kramdown"
   spec.add_dependency "rouge", ">= 1.5"
 
   spec.files         = `git ls-files`.split($/)

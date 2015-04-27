@@ -23,14 +23,6 @@ describe Hologram::Utils do
       end
     end
 
-    context 'when passed a valid custom renderer' do
-      let(:renderer) { utils.get_markdown_renderer('valid_renderer.rb') }
-
-      it 'returns the custom renderer' do
-        expect(renderer).to eql ValidRenderer
-      end
-    end
-
     context 'when passed an invalid custom renderer' do
       context 'expecting a class named as the upper camel cased version of the file name' do
         it 'exits' do

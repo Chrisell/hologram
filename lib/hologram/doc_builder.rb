@@ -173,8 +173,6 @@ module Hologram
     def write_docs
       load_code_example_templates_and_renderers
 
-      renderer_instance = renderer.new(link_helper: link_helper)
-      markdown = Redcarpet::Markdown.new(renderer_instance, { :fenced_code_blocks => true, :tables => true })
       tpl_vars = TemplateVariables.new({:categories => @categories, :config => @config_yml, :pages => @pages})
       #generate html from markdown
       @pages.each do |file_name, page|
@@ -191,7 +189,7 @@ module Hologram
           if page.has_key?(:erb)
             write_erb(file_name, page[:erb], tpl_vars.get_binding)
           else
-            write_page(file_name, markdown.render(page[:md]), tpl_vars.get_binding)
+            write_page(file_name, Kramdown::Document.new(page[:md]).to_html, tpl_vars.get_binding)
           end
         end
       end
